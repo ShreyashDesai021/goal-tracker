@@ -34,6 +34,9 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 
 import {
@@ -281,6 +284,15 @@ const hasChartData =
     ) =>
       item.value > 0
   );
+
+  const COLORS = [
+  "#4f46e5",
+  "#06b6d4",
+  "#10b981",
+  "#f59e0b",
+  "#ef4444",
+  "#8b5cf6",
+];
 
   const getHealth =
     () => {
@@ -735,48 +747,71 @@ const hasChartData =
       width="100%"
       height={320}
     >
-      <BarChart
-        data={
-          chartData
-        }
-      >
-        <XAxis
-          dataKey="name"
-        />
+      <PieChart>
 
-        <YAxis />
+        <Pie
+          data={
+            chartData.filter(
+              (
+                item
+              ) =>
+                item.value > 0
+            )
+          }
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={110}
+          label
+        >
+
+          {chartData
+            .filter(
+              (
+                item
+              ) =>
+                item.value > 0
+            )
+            .map(
+              (
+                _,
+                index
+              ) => (
+                <Cell
+                  key={index}
+                  fill={
+                    COLORS[
+                      index %
+                      COLORS.length
+                    ]
+                  }
+                />
+              )
+            )}
+
+        </Pie>
 
         <Tooltip />
 
-        <Bar
-          dataKey="value"
-          fill="#4f46e5"
-          radius={[
-            12,
-            12,
-            0,
-            0,
-          ]}
-        />
-      </BarChart>
+      </PieChart>
     </ResponsiveContainer>
 
   ) : (
 
     <div className="h-[320px] flex flex-col items-center justify-center text-center">
 
-      <TrendingUp
+      <FileBarChart
         size={48}
         className="text-slate-300 mb-4"
       />
 
       <h3 className="text-xl font-bold text-slate-700">
-        No analytics yet
+        No distribution data
       </h3>
 
       <p className="text-slate-500 mt-2">
-        Create goals to unlock
-        performance insights
+        Goal distribution will appear here
       </p>
 
     </div>
