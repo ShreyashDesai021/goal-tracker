@@ -153,6 +153,7 @@ function CheckinsPage() {
   if (
     loading
   ) {
+
     return (
       <div className="min-h-screen bg-slate-100 flex items-center justify-center text-2xl font-semibold text-gray-500">
         Loading check-ins...
@@ -383,6 +384,23 @@ function CheckinsPage() {
                   </span>
 
                 </div>
+
+                {update.managerComment && (
+
+                  <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+
+                    <p className="text-sm font-semibold text-indigo-700 mb-1">
+                      Manager Comment
+                    </p>
+
+                    <p className="text-slate-700">
+                      {
+                        update.managerComment
+                      }
+                    </p>
+
+                  </div>
+                )}
 
               </div>
             )

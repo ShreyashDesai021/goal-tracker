@@ -191,24 +191,64 @@ export const getMyUpdates =
     employeeId: string
   ) => {
 
-    return prisma
-      .quarterlyUpdate
-      .findMany({
-        where: {
-          goal: {
-            goalSheet: {
-              employeeId,
+    const updates =
+      await prisma
+        .quarterlyUpdate
+        .findMany({
+          where: {
+            goal: {
+              goalSheet: {
+                employeeId,
+              },
             },
           },
-        },
 
-        include: {
-          goal: true,
-        },
+          include: {
+            goal: {
+              include: {
+                goalSheet: true,
+              },
+            },
+          },
 
-        orderBy: {
-          createdAt:
-            "desc",
-        },
-      });
+          orderBy: {
+            createdAt:
+              "desc",
+          },
+        });
+
+    const comments =
+      await prisma
+        .checkIn
+        .findMany({
+          where: {
+            employeeId,
+          },
+        });
+
+    return updates.map(
+      (update) => {
+
+        const matchingComment =
+          comments.find(
+            (
+              comment
+            ) =>
+              comment.goalSheetId ===
+                update.goal
+                  .goalSheetId &&
+
+              comment.quarter ===
+                update.quarter
+          );
+
+        return {
+          ...update,
+          managerComment:
+            matchingComment
+              ?.comment ||
+            null,
+        };
+      }
+    );
   };

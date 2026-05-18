@@ -91,9 +91,10 @@ export const createGoalSheet =
     return goalSheet;
   };
 
-
 export const getMyGoals =
-  async (employeeId: string) => {
+  async (
+    employeeId: string
+  ) => {
 
     return prisma.goalSheet.findMany({
       where: {
@@ -103,8 +104,7 @@ export const getMyGoals =
       include: {
         goals: {
           include: {
-            quarterlyUpdates:
-              true,
+            quarterlyUpdates: true,
           },
         },
       },

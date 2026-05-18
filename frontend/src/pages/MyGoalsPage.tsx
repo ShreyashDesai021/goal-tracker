@@ -301,7 +301,7 @@ function MyGoalsPage() {
                               Quarterly Updates
                             </h4>
 
-                            <div className="space-y-2">
+                            <div className="space-y-3">
 
                               {goal.quarterlyUpdates.map(
                                 (
@@ -312,27 +312,51 @@ function MyGoalsPage() {
                                     key={
                                       update.id
                                     }
-                                    className="bg-slate-100 rounded-xl p-3 text-sm flex justify-between"
+                                    className="bg-slate-100 rounded-2xl p-4"
                                   >
 
-                                    <span>
-                                      {
-                                        update.quarter
-                                      }
-                                    </span>
+                                    <div className="flex justify-between text-sm font-medium">
 
-                                    <span>
-                                      {
-                                        update.progressStatus
-                                      }
-                                    </span>
+                                      <span>
+                                        {
+                                          update.quarter
+                                        }
+                                      </span>
 
-                                    <span>
-                                      Score{" "}
-                                      {
-                                        update.score
-                                      }
-                                    </span>
+                                      <span className="text-indigo-600 font-semibold">
+                                        {
+                                          update.progressStatus
+                                        }
+                                      </span>
+
+                                      <span>
+                                        Score{" "}
+                                        {
+                                          update.score
+                                        }
+                                      </span>
+
+                                    </div>
+
+                                    {/* MANAGER COMMENT */}
+
+                                    {update.managerComment && (
+
+                                      <div className="mt-4 bg-white border border-slate-200 rounded-xl p-4">
+
+                                        <p className="text-sm font-semibold text-slate-700 mb-1">
+                                          💬 Manager Feedback
+                                        </p>
+
+                                        <p className="text-slate-600">
+                                          {
+                                            update.managerComment
+                                          }
+                                        </p>
+
+                                      </div>
+
+                                    )}
 
                                   </div>
                                 )
