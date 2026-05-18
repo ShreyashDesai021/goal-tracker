@@ -7,3 +7,15 @@ body {
   background: #f8fafc;
   font-family: Inter, sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button {
+  transition:
+    all 0.25s ease;
+}

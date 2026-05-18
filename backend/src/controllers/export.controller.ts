@@ -15,13 +15,25 @@ export const exportGoals =
       const data =
         await getGoalExportData();
 
-      const parser =
-        new Parser();
+if (
+  !data ||
+  data.length === 0
+) {
 
-      const csv =
-        parser.parse(
-          data
-        );
+  return res.status(200)
+  .json({
+    message:
+      "No goals available to export",
+  });
+}
+
+const parser =
+  new Parser();
+
+const csv =
+  parser.parse(
+    data
+  );
 
       const today =
         new Date()
